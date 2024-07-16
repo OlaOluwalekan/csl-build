@@ -5,9 +5,11 @@ import {
 } from 'react-icons/bs'
 import clsx from 'clsx'
 import { slideData } from '../../data/slide-data'
+import { useLocation } from 'react-router-dom'
 
 const HeroCarousel = () => {
   let [current, setCurrent] = useState(0) // current carousel slide index
+  const location = useLocation()
 
   let previousSlide = () => {
     if (current === 0) setCurrent(slideData.length - 1)
@@ -43,7 +45,8 @@ const HeroCarousel = () => {
                 <img src={slide.imgSrc} alt={slide.alt} />
                 <article className='w-full h-full bg-[#00000021] absolute top-0'></article>
                 <div className='w-screen h-full absolute top-0 flex justify-center items-center text-3xl text-white'>
-                  {slide.text}
+                  {location.pathname === '/' && "Home"}
+                  {location.pathname === '/register' && "Admin Registration"}
                 </div>
               </div>
             )

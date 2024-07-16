@@ -1,13 +1,14 @@
-import AuthWrapper from "../components/auth/AuthWrapper"
+import AuthWrapper from "../components/auth/AuthWrapper";
+import RegisterForm from "../components/auth/RegisterForm";
 
 const Register = () => {
-  return <div>
-    <AuthWrapper title="Register">
-      <form>
-        Register Form
-      </form>
-    </AuthWrapper>
-  </div>
-}
+  return (
+    <div>
+      <AuthWrapper title="Register" text="Kindly fill in the information below">
+        <RegisterForm />
+      </AuthWrapper>
+    </div>
+  );
+};
 
-export default Register
+export default Register;
