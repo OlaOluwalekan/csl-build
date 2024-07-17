@@ -4,10 +4,8 @@ import PasswordInput from "../ui/inputs/PasswordInput";
 import BasicButton from "../ui/buttons/BasicButton";
 import { Link } from "react-router-dom";
 
-const RegisterForm = () => {
+const LoginForm = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
   });
@@ -24,20 +22,6 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <BasicInput
-        type="text"
-        value={formData.firstName}
-        name="firstName"
-        placeholder="First Name"
-        handleChange={handleChange}
-      />
-      <BasicInput
-        type="text"
-        value={formData.lastName}
-        name="lastName"
-        placeholder="Last Name"
-        handleChange={handleChange}
-      />
-      <BasicInput
         type="email"
         value={formData.email}
         name="email"
@@ -50,16 +34,25 @@ const RegisterForm = () => {
         placeholder="Password"
         handleChange={handleChange}
       />
-      <p className="text-left text-sm text-light-grey my-2">
-        Minimum of 6 characters. At least 1 capital letter, 1 number & 1 special
-        character.
-      </p>
-      <BasicButton type="submit" text="Register" />
-      <Link className="text-sm text-light-grey my-2" to="/login">
-        Already have an account?
+      {/* <div className="form-control"> */}
+      <label className="label cursor-pointer justify-start gap-2">
+        <input
+          type="checkbox"
+          defaultChecked
+          className="checkbox checkbox-sm rounded accent-base-grey"
+        />
+        <span className="label-text text-base-grey">Remember me</span>
+      </label>
+      {/* </div> */}
+      <BasicButton type="submit" text="Login" />
+      <Link className="text-sm text-light-grey my-2 block" to="/login">
+        Forgot your password?
+      </Link>
+      <Link className="text-sm text-light-grey my-2 block" to="/register">
+        Register admin account?
       </Link>
     </form>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

@@ -1,5 +1,14 @@
-const Login = () => {
-  return <div>Login</div>
-}
+import AuthWrapper from "../components/auth/AuthWrapper";
+import LoginForm from "../components/auth/LoginForm";
 
-export default Login
+const Login = () => {
+  return (
+    <div>
+      <AuthWrapper title="Login" text="Kindly fill in the information below">
+        <LoginForm />
+      </AuthWrapper>
+    </div>
+  );
+};
+
+export default Login;
