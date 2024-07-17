@@ -1,15 +1,20 @@
-import Logo from '../logo/Logo'
+import HeaderRow1 from "./HeaderRow1";
+import HeaderRowLast from "./HeaderRowLast";
 
 const Header = () => {
   return (
-    <div>
-      <section>
-        <div className='w-[90%] max-w-[1200px] m-auto py-2 flex items-center justify-center'>
-          <Logo />
-        </div>
-      </section>
-    </div>
-  )
-}
+    <header className="shadow-md">
+      <div className="w-[95%] mx-auto py-2 flex justify-between items-center tablet:py-4">
+        <HeaderRow1 />
 
-export default Header
+        <section className="hidden font-bold font-lato laptop:flex">
+          Admin Board
+        </section>
+
+        <HeaderRowLast />
+      </div>
+    </header>
+  );
+};
+
+export default Header;

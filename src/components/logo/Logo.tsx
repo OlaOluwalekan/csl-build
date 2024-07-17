@@ -1,12 +1,25 @@
-import { Link } from 'react-router-dom'
+import clsx from "clsx";
+import { Link } from "react-router-dom";
+import { logoSize } from "./logo.config";
 
-const Logo = () => {
+const Logo = ({ size }: { size?: string }) => {
   return (
-    <Link to='/' className='flex items-center gap-2'>
-      <img src='/images/csl-icon.svg' alt='Logo' className='w-[30px]' />
-      <span className='text-xl font-extrabold font-lato'>CSL Hospitality</span>
+    <Link to="/" className="flex items-center gap-2">
+      <img
+        src="/images/csl-icon.svg"
+        alt="Logo"
+        className={clsx(logoSize(size as string).imgSize)}
+      />
+      <span
+        className={clsx(
+          "text-xl font-extrabold font-lato",
+          logoSize(size as string).textSize
+        )}
+      >
+        CSL Hospitality
+      </span>
     </Link>
-  )
-}
+  );
+};
 
-export default Logo
+export default Logo;

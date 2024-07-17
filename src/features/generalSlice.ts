@@ -8,7 +8,13 @@ const initialState: generalInitialState = {
 const generalSlice = createSlice({
   name: "general",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleNav: (state, { payload }) => {
+      state.navIsOpen = payload;
+    },
+  },
 });
+
+export const { toggleNav } = generalSlice.actions;
 
 export default generalSlice.reducer;

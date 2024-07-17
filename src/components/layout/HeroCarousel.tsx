@@ -48,9 +48,10 @@ const HeroCarousel = () => {
                   className="h-full object-cover"
                 />
                 <article className="w-full h-full bg-[#00000021] absolute top-0"></article>
-                <div className="w-screen h-full absolute top-0 flex justify-center items-center text-3xl text-white">
+                <div className="w-screen h-full absolute top-0 flex justify-center items-center text-3xl text-white text-center">
                   {location.pathname === "/" && "Home"}
                   {location.pathname === "/register" && "Admin Registration"}
+                  {location.pathname === "/login" && "Admin Login"}
                 </div>
               </div>
             );
