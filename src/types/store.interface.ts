@@ -4,8 +4,8 @@ export interface generalInitialState {
 
 // ADMIN
 export interface AdminPayloadProps {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
 }

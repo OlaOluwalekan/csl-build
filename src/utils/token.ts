@@ -13,5 +13,7 @@ export const decryptToken = (token: string): any => {
     import.meta.env.VITE_ENC_SECRET
   );
   const decryptedData = JSON.parse(decryptedBytes.toString(CryptoJS.enc.Utf8));
+  // console.log(decryptedData);
+
   return decryptedData;
 };

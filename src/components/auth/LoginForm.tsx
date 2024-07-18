@@ -2,25 +2,63 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import BasicInput from "../ui/inputs/BasicInput";
 import PasswordInput from "../ui/inputs/PasswordInput";
 import BasicButton from "../ui/buttons/BasicButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { checkFormData } from "../../utils/form-check";
+import { BasicNotificationProp } from "../../types/notification.interface";
+import BasicNotification from "../notification/BasicNotification";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { loginAdmin } from "../../features/authSlice";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [notification, setNotification] = useState<BasicNotificationProp>({
+    show: false,
+    message: "",
+    type: "success",
+  });
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const showNotification = (message: string, type: "success" | "error") => {
+    setNotification({ show: true, message, type });
+    setTimeout(() => {
+      setNotification({ show: false, message: "", type: "success" });
+    }, 3000);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    const { hasErrors } = checkFormData(formData, showNotification, "login");
+    if (hasErrors) return;
+    dispatch(loginAdmin(formData)).then((res) => {
+      if (res.payload.success) {
+        setFormData({
+          email: "",
+          password: "",
+        });
+        navigate("/");
+      } else {
+        showNotification(res.payload.message, "error");
+      }
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {notification.show && (
+        <BasicNotification
+          message={notification.message}
+          type={notification.type}
+        />
+      )}
       <BasicInput
         type="email"
         value={formData.email}
@@ -34,7 +72,6 @@ const LoginForm = () => {
         placeholder="Password"
         handleChange={handleChange}
       />
-      {/* <div className="form-control"> */}
       <label className="label cursor-pointer justify-start gap-2">
         <input
           type="checkbox"
@@ -43,7 +80,6 @@ const LoginForm = () => {
         />
         <span className="label-text text-base-grey">Remember me</span>
       </label>
-      {/* </div> */}
       <BasicButton type="submit" text="Login" />
       <Link className="text-sm text-light-grey my-2 block" to="/login">
         Forgot your password?

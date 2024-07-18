@@ -5,12 +5,17 @@ export const addAdminToLocalStorage = (admin: AdminProps) => {
   localStorage.setItem("xJVerKY", encryptToken(admin));
 };
 
-export const getAdminFromLocalStorage = () => {
-  let result = localStorage.getItem("xJVerKY");
-  if (result) {
-    result = decryptToken(result);
+export const getAdminFromLocalStorage = (): AdminProps | null => {
+  let rawResult = localStorage.getItem("xJVerKY");
+  console.log("RAW: ", typeof rawResult);
+
+  let result: AdminProps | null = null;
+  if (rawResult) {
+    result = decryptToken(rawResult);
   }
-  return JSON.parse(result as string) || null;
+  // console.log(result);
+
+  return result || null;
 };
 
 export const removeAdminFromLocalStorage = () => {

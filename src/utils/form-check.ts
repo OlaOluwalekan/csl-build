@@ -11,7 +11,8 @@ const keyMap: FormDataProps = {
 
 export const checkFormData = (
   formData: FormDataProps,
-  cb: (message: string, type: "error" | "success") => void
+  cb: (message: string, type: "error" | "success") => void,
+  page = "register"
 ) => {
   for (let key in formData) {
     if (formData[key] === "") {
@@ -19,7 +20,7 @@ export const checkFormData = (
       return { hasErrors: true };
     }
   }
-  if (formData.password) {
+  if (formData.password && page == "register") {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!regex.test(formData.password as string)) {
