@@ -13,7 +13,7 @@ const SideBar = () => {
   return (
     <nav
       className={clsx(
-        "w-full h-screen  absolute top-0 z-10 transition-all bg-[#00000079] laptop:static laptop:h-full laptop:w-[300px]",
+        "w-full h-screen fixed top-0 z-10 transition-all bg-[#00000079] laptop:static laptop:h-full laptop:w-[300px]",
         navIsOpen ? "left-0" : "left-[-5000px]"
       )}
       onClick={() => dispatch(toggleNav(false))}

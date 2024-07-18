@@ -14,6 +14,8 @@ export default {
         "indigo-red": "#92213D",
         brownish: "#92213D",
         "pink-overlay": "#E4C7CF",
+        error: "#ED1C24",
+        success: "#35B85B",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
