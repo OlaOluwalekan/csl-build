@@ -1,19 +1,17 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
-import BasicInput from '../ui/inputs/BasicInput'
-import PasswordInput from '../ui/inputs/PasswordInput'
-import BasicButton from '../ui/buttons/BasicButton'
-import { Link, useNavigate } from 'react-router-dom'
-import { checkFormData } from '../../utils/form-check'
+import { ChangeEvent, useState } from 'react'
 import { BasicNotificationProp } from '../../types/notification.interface'
 import BasicNotification from '../notification/BasicNotification'
+import BasicInput from '../ui/inputs/BasicInput'
+import BasicButton from '../ui/buttons/BasicButton'
+import { Link } from 'react-router-dom'
+import { checkFormData } from '../../utils/form-check'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../store'
-import { loginAdmin } from '../../features/authSlice'
+import { sendPasswordResetEmail } from '../../features/authSlice'
 
-const LoginForm = () => {
+const ForgetPasswordForm = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
   })
   const [notification, setNotification] = useState<BasicNotificationProp>({
     show: false,
@@ -21,7 +19,6 @@ const LoginForm = () => {
     type: 'success',
   })
   const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
   const { isLoading } = useSelector((store: RootState) => store.auth)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,17 +32,16 @@ const LoginForm = () => {
     }, 3000)
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { hasErrors } = checkFormData(formData, showNotification, 'login')
     if (hasErrors) return
-    dispatch(loginAdmin(formData)).then((res) => {
+    dispatch(sendPasswordResetEmail(formData)).then((res) => {
       if (res.payload.success) {
         setFormData({
           email: '',
-          password: '',
         })
-        navigate('/')
+        showNotification(res.payload.data.message, 'success')
       } else {
         showNotification(res.payload.message, 'error')
       }
@@ -67,26 +63,13 @@ const LoginForm = () => {
         placeholder='Email'
         handleChange={handleChange}
       />
-      <PasswordInput
-        value={formData.password}
-        name='password'
-        placeholder='Password'
-        handleChange={handleChange}
+      <BasicButton
+        type='submit'
+        text={isLoading ? 'Loading...' : 'Send Link'}
+        disabled={isLoading}
       />
-      <label className='label cursor-pointer justify-start gap-2'>
-        <input
-          type='checkbox'
-          defaultChecked
-          className='checkbox checkbox-sm rounded accent-base-grey'
-        />
-        <span className='label-text text-base-grey'>Remember me</span>
-      </label>
-      <BasicButton type='submit' text={isLoading ? 'Loading...' : 'Login'} />
-      <Link
-        className='text-sm text-light-grey my-2 block'
-        to='/forget-password'
-      >
-        Forgot your password?
+      <Link className='text-sm text-light-grey my-2 block' to='/login'>
+        Back to Login
       </Link>
       <Link className='text-sm text-light-grey my-2 block' to='/register'>
         Register admin account?
@@ -95,4 +78,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default ForgetPasswordForm
