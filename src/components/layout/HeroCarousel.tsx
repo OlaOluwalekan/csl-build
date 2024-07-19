@@ -52,6 +52,9 @@ const HeroCarousel = () => {
                   {location.pathname === "/" && "Home"}
                   {location.pathname === "/register" && "Admin Registration"}
                   {location.pathname === "/login" && "Admin Login"}
+                  {location.pathname === "/forgot-password" &&
+                    "Forgot Password"}
+                  {location.pathname === "/reset-password" && "Reset Password"}
                 </div>
               </div>
             );

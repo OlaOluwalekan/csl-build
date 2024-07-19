@@ -7,6 +7,7 @@ const keyMap: FormDataProps = {
   lastName: "Last Name",
   email: "Email",
   password: "Password",
+  confirmPassword: "Confirm Password",
 };
 
 export const checkFormData = (
@@ -20,13 +21,20 @@ export const checkFormData = (
       return { hasErrors: true };
     }
   }
-  if (formData.password && page == "register") {
+  if ((formData.password && page == "register") || page == "reset-password") {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!regex.test(formData.password as string)) {
       cb("Please choose a stronger password", "error");
       return { hasErrors: true };
     }
+  }
+  if (
+    formData.confirmPassword &&
+    formData.confirmPassword !== formData.password
+  ) {
+    cb("Passwords do not match", "error");
+    return { hasErrors: true };
   }
   return { hasErrors: false };
 };
