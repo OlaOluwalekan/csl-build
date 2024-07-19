@@ -1,13 +1,15 @@
 interface GeneralBtnProps {
-  type?: "submit" | "reset" | "button";
-  text?: string;
-  disabled?: boolean;
+  type?: 'submit' | 'reset' | 'button'
+  text?: string
+  disabled?: boolean
 }
 
 export interface BasicBtnProps extends GeneralBtnProps {
-  onClick?: () => void;
+  onClick?: () => void
 }
 
 export interface LinkBtnProps extends GeneralBtnProps {
-  href: string;
+  href: string
 }
+
+export interface OutlineBtnProps extends BasicBtnProps {}
