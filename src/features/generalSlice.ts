@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generalInitialState } from "../types/store.interface";
+import { generalInitialState } from "../types/general.interface";
 
 const initialState: generalInitialState = {
   navIsOpen: false,

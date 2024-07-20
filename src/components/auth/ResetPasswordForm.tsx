@@ -26,7 +26,6 @@ const ResetPasswordForm = () => {
   const resetPasswordSuccess = searchParams.get("success");
   const iv = searchParams.get("iv");
   const content = searchParams.get("content");
-  const timestamp = searchParams.get("timestamp");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -55,7 +54,6 @@ const ResetPasswordForm = () => {
         encryption: {
           iv: iv as string,
           content: content as string,
-          timestamp: timestamp as string,
         },
       })
     ).then((res) => {

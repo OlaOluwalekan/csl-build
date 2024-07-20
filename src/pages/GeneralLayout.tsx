@@ -6,9 +6,14 @@ const GeneralLayout = () => {
   return (
     <div>
       <Header />
-      <div className="h-[calc(100vh-55px)] bg-base-main tablet:flex tablet:h-[calc(100vh-70px)]">
-        <SideBar />
-        <Outlet />
+      <div className="bg-base-main">
+        <section className="font-bold font-lato text-center text-navy-blue laptop:hidden">
+          Admin Board
+        </section>
+        <div className="h-[calc(100vh-55px)] tablet:flex tablet:h-[calc(100vh-70px)]">
+          <SideBar />
+          <Outlet />
+        </div>
       </div>
     </div>
   );

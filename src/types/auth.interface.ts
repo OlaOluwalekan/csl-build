@@ -1,8 +1,9 @@
-export interface generalInitialState {
-  navIsOpen: boolean;
+export interface authSliceInitialState {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  admin: AdminProps | null;
 }
 
-// ADMIN
 export interface AdminPayloadProps {
   firstName?: string;
   lastName?: string;
@@ -29,17 +30,10 @@ export interface adminResponseProps {
   };
 }
 
-export interface authSliceInitialState {
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  admin: AdminProps | null;
-}
-
 export interface ResetPasswordPayload {
   password: string;
   encryption: {
     iv: string;
     content: string;
-    timestamp: string;
   };
 }

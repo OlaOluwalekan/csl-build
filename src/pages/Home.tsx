@@ -1,5 +1,11 @@
-const Home = () => {
-  return <div>Home</div>
-}
+import ModuleSummary from "../components/home/ModuleSummary";
 
-export default Home
+const Home = () => {
+  return (
+    <div className="p-4">
+      <ModuleSummary />
+    </div>
+  );
+};
+
+export default Home;

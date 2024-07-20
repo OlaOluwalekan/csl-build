@@ -4,7 +4,7 @@ import {
   adminResponseProps,
   authSliceInitialState,
   ResetPasswordPayload,
-} from "../types/store.interface";
+} from "../types/auth.interface";
 import axios from "axios";
 import {
   addAdminToLocalStorage,

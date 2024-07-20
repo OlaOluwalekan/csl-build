@@ -1,4 +1,4 @@
-import { AdminProps } from "../types/store.interface";
+import { AdminProps } from "../types/auth.interface";
 import { encryptToken, decryptToken } from "./token";
 
 export const addAdminToLocalStorage = (admin: AdminProps) => {
@@ -7,13 +7,11 @@ export const addAdminToLocalStorage = (admin: AdminProps) => {
 
 export const getAdminFromLocalStorage = (): AdminProps | null => {
   let rawResult = localStorage.getItem("xJVerKY");
-  console.log("RAW: ", typeof rawResult);
 
   let result: AdminProps | null = null;
   if (rawResult) {
     result = decryptToken(rawResult);
   }
-  // console.log(result);
 
   return result || null;
 };
