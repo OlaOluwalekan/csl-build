@@ -9,6 +9,8 @@ import Protected from "./pages/Protected";
 import Requests from "./pages/Requests";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ClientProfile from "./pages/ClientProfile";
+import Settings from "./pages/Settings";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
           >
             <Route index element={<Home />} />
             <Route path="requests" element={<Requests />} />
+            <Route path="client-profile" element={<ClientProfile />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
           <Route element={<AuthLayout />}>
             <Route path="register" element={<Register />} />

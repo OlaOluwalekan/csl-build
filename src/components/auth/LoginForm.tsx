@@ -81,7 +81,11 @@ const LoginForm = () => {
         />
         <span className="label-text text-base-grey">Remember me</span>
       </label>
-      <BasicButton type="submit" text={isLoading ? "Loading..." : "Login"} />
+      <BasicButton
+        type="submit"
+        text={isLoading ? "Loading..." : "Login"}
+        disabled={isLoading}
+      />
       <Link
         className="text-sm text-light-grey my-2 block"
         to="/forgot-password"

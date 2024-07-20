@@ -34,3 +34,12 @@ export interface authSliceInitialState {
   isLoading: boolean;
   admin: AdminProps | null;
 }
+
+export interface ResetPasswordPayload {
+  password: string;
+  encryption: {
+    iv: string;
+    content: string;
+    timestamp: string;
+  };
+}
