@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Heading3 from "../ui/headings/Heading3";
 
 const TrialLevelBar = ({ data }: { data: any }) => {
   const createdDate = new Date(Number(data.createdAt));
@@ -16,7 +17,7 @@ const TrialLevelBar = ({ data }: { data: any }) => {
 
   return (
     <div className="bg-base-white px-5 py-2 flex flex-col gap-6 rounded-md">
-      <h3 className="text-sm font-semibold">{data.organisationName}</h3>
+      <Heading3 text={data.organisationName} />
       <div>
         <section className="w-full h-2 bg-light-grey rounded">
           <article

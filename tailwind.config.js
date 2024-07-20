@@ -22,8 +22,8 @@ export default {
         lato: ["Lato", "sans-serif"],
       },
       screens: {
-        tablet: "480px",
-        laptop: "768px",
+        tablet: "700px",
+        laptop: "900px",
         desktop: "1024px",
       },
       keyframes: {
