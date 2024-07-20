@@ -1,4 +1,5 @@
 import { organizations } from "../../mock/organizations-data";
+import Heading2 from "../ui/headings/Heading2";
 import Summary from "./Summary";
 
 const moduleArray = [
@@ -27,7 +28,7 @@ const moduleArray = [
 const ModuleSummary = () => {
   return (
     <div>
-      <h2 className="text-xl font-bold text-navy-blue">Modules</h2>
+      <Heading2 text="Modules" />
       <div className="grid grid-cols-2 gap-4 my-3 laptop:flex flex-wrap">
         {moduleArray.map((module: any) => {
           return <Summary key={module.id} {...module} data={organizations} />;

@@ -12,7 +12,9 @@ const GeneralLayout = () => {
         </section>
         <div className="h-[calc(100vh-55px)] tablet:flex tablet:h-[calc(100vh-70px)]">
           <SideBar />
-          <Outlet />
+          <div className="overflow-auto w-full h-full scrollbar-none">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
