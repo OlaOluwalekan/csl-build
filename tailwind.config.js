@@ -25,6 +25,7 @@ export default {
         tablet: "700px",
         laptop: "900px",
         desktop: "1024px",
+        large: "1200px",
         tall: { raw: "(min-height: 700px)" },
       },
       keyframes: {

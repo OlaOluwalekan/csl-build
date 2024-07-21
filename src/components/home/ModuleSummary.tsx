@@ -29,7 +29,7 @@ const ModuleSummary = () => {
   return (
     <div>
       <Heading2 text="Modules" />
-      <div className="grid grid-cols-2 gap-4 my-3 laptop:flex flex-wrap">
+      <div className="grid grid-cols-2 gap-4 my-3 laptop:flex flex-wrap large:grid-cols-1">
         {moduleArray.map((module: any) => {
           return <Summary key={module.id} {...module} data={organizations} />;
         })}

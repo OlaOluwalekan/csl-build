@@ -14,10 +14,10 @@ const Summary = ({
   });
 
   return (
-    <div className="bg-navy-blue text-base-white w-[calc(50vw-32px)] relative rounded-xl laptop:w-[200px] overflow-hidden">
+    <div className="bg-navy-blue text-base-white w-[calc(50vw-60px)] relative rounded-xl laptop:w-[200px] overflow-hidden large:w-[calc(25%-12px)] large:aspect-[4/2] large:min-h-[150px]">
       <div className="w-[150%] aspect-square absolute bg-indigo-red/30 rounded-full top-0 bottom-0 m-auto left-[70%]"></div>
       <div className="w-[200%] aspect-square absolute bg-indigo-red/30 rounded-full right-[-50%] top-[45%]"></div>
-      <div className="py-5 px-4 flex flex-col gap-5">
+      <div className="py-5 px-4 flex flex-col gap-5 h-full large:justify-between">
         <article>
           <img src={icon} alt={label} className="w-6" />
           <h2 className="my-2">{label}</h2>
