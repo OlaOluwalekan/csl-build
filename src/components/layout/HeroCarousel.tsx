@@ -30,22 +30,22 @@ const HeroCarousel = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-100vw bg-red-400">
       <div className="overflow-hidden relative aspect-[5/3] laptop:aspect-auto">
         {/* SLIDES */}
         <div
-          className="flex transition ease-out duration-75 w-[400vw] h-full"
+          className="flex transition ease-out duration-75 w-[400%] h-full"
           style={{
             transform: `translateX(-${current * 25}%)`,
           }}
         >
           {slideData.map((slide) => {
             return (
-              <div className="w-screen h-full" key={slide.id}>
+              <div className="w-full h-full" key={slide.id}>
                 <img
                   src={slide.imgSrc}
                   alt={slide.alt}
-                  className="h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
                 <article className="w-full h-full bg-[#00000021] absolute top-0"></article>
                 <div className="w-screen h-full absolute top-0 flex justify-center items-center text-3xl text-white text-center">
