@@ -1,6 +1,10 @@
-import { organizations } from "../../mock/organizations-data";
+import { useDispatch, useSelector } from "react-redux";
+// import { organizations } from "../../mock/organizations-data";
 import Heading2 from "../ui/headings/Heading2";
 import Summary from "./Summary";
+import { AppDispatch, RootState } from "../../store";
+import { useEffect } from "react";
+import { getOrgRequests } from "../../features/requestsSlice";
 
 const moduleArray = [
   {
@@ -26,6 +30,13 @@ const moduleArray = [
 ];
 
 const ModuleSummary = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { organizations } = useSelector((store: RootState) => store.requests);
+
+  useEffect(() => {
+    dispatch(getOrgRequests());
+  }, []);
+
   return (
     <div>
       <Heading2 text="Modules" />

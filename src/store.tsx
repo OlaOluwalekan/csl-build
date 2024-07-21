@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import generalSlice from "./features/generalSlice";
 import authSlice from "./features/authSlice";
+import requestsSlice from "./features/requestsSlice";
 
 const store = configureStore({
   reducer: {
     general: generalSlice,
     auth: authSlice,
+    requests: requestsSlice,
   },
 });
 

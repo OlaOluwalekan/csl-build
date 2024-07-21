@@ -19,3 +19,15 @@ export const getAdminFromLocalStorage = (): AdminProps | null => {
 export const removeAdminFromLocalStorage = () => {
   localStorage.removeItem("xJVerKY");
 };
+
+export const addTokenToLocalStorage = (token: string) => {
+  localStorage.setItem("token", token);
+};
+
+export const getTokenFromLocalStorage = (): string | null => {
+  return localStorage.getItem("token");
+};
+
+export const removeTokenFromLocalStorage = () => {
+  localStorage.removeItem("token");
+};

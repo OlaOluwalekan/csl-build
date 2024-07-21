@@ -6,6 +6,7 @@ import {
   isToday,
   isYesterday,
 } from "date-fns";
+import { randomPassword } from "secure-random-password";
 
 export const showAlert = (
   cb: ({}: {}) => void,
@@ -19,7 +20,7 @@ export const showAlert = (
 };
 
 export const formatDate = (date: string | Date) => {
-  const d = new Date(Number(date));
+  const d = new Date(date);
   const now = new Date();
 
   const secDiff = differenceInSeconds(now, d);
@@ -31,7 +32,7 @@ export const formatDate = (date: string | Date) => {
   if (secDiff < 60) {
     res = `${secDiff} secs ago`;
   } else if (minDiff < 60) {
-    res = `${secDiff} mins ago`;
+    res = `${minDiff} mins ago`;
   } else if (hrDiff < 4 && isToday(d)) {
     res = `${hrDiff} hrs ago`;
   } else if (isToday(d)) {
@@ -43,4 +44,18 @@ export const formatDate = (date: string | Date) => {
   }
 
   return res;
+};
+
+export const generateRandomPassword = () => {
+  const password = randomPassword({
+    length: 10,
+    characters: [
+      { characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ" },
+      { characters: "abcdefghijklmnopqrstuvwxyz" },
+      { characters: "0123456789" },
+      { characters: "!@#$%^&*" },
+    ],
+  });
+
+  return password;
 };

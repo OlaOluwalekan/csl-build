@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+
 const Summary = ({
   id,
   label,
@@ -9,6 +12,8 @@ const Summary = ({
   icon: string;
   data: any;
 }) => {
+  const { isLoading } = useSelector((store: RootState) => store.requests);
+
   const res = data.filter((item: any) => {
     return item.module === id;
   });
@@ -24,7 +29,7 @@ const Summary = ({
         </article>
         <article className="flex justify-between items-center">
           <p className="text-sm w-1/2">Total Registered</p>
-          <h3 className="text-2xl font-bold">{res.length}</h3>
+          <h3 className="text-2xl font-bold">{isLoading ? "0" : res.length}</h3>
         </article>
       </div>
     </div>

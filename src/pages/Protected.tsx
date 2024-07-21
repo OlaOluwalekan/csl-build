@@ -4,9 +4,9 @@ import { RootState } from "../store";
 import { Navigate } from "react-router-dom";
 
 const Protected = ({ children }: { children: ReactNode }) => {
-  const { admin } = useSelector((store: RootState) => store.auth);
+  const { admin, token } = useSelector((store: RootState) => store.auth);
 
-  if (!admin || !admin.isAdmin) {
+  if (!admin || !admin.isAdmin || !token) {
     return <Navigate to="/login" />;
   }
 

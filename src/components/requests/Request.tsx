@@ -2,7 +2,7 @@ import { FaChevronRight } from "react-icons/fa6";
 import { OrganizationProps } from "../../types/admin.interface";
 import Heading3 from "../ui/headings/Heading3";
 import clsx from "clsx";
-import { formatDate } from "../../utils/helpers";
+import { formatDate, generateRandomPassword } from "../../utils/helpers";
 import { useState } from "react";
 import SmallRoundedButton from "../ui/buttons/SmallRoundedButton";
 
@@ -17,7 +17,7 @@ const Request = ({ data }: { data: OrganizationProps }) => {
   };
 
   const generatePassword = () => {
-    let pass = "6edjwudhh";
+    const pass = generateRandomPassword();
     setPassword(pass);
   };
 
@@ -32,9 +32,9 @@ const Request = ({ data }: { data: OrganizationProps }) => {
           <section>
             <Heading3
               text={data.organisationName}
-              styleClass="w-[70%] truncate"
+              styleClass="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap tablet:w-fit"
             />
-            <span className="text-xs">
+            <span className="text-xs block w-[70%] overflow-hidden text-ellipsis whitespace-nowrap tablet:w-fit">
               Request for {data.module.toUpperCase()} module
             </span>
           </section>

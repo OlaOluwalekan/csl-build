@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import Heading3 from "../ui/headings/Heading3";
+import { OrganizationProps } from "../../types/admin.interface";
 
-const TrialLevelBar = ({ data }: { data: any }) => {
-  const createdDate = new Date(Number(data.createdAt));
+const TrialLevelBar = ({ data }: { data: OrganizationProps }) => {
+  const createdDate = new Date(data.createdAt);
   const today = new Date();
   const diffMilSecs = today.getTime() - createdDate.getTime();
   const diffDays = Math.floor(diffMilSecs / (1000 * 3600 * 24));
@@ -13,7 +14,8 @@ const TrialLevelBar = ({ data }: { data: any }) => {
     w = (diffDays / 30) * 100;
   }
 
-  console.log(diffDays, " : ", w);
+  // console.log(diffDays, " : ", w);
+  // console.log(new Date(data.createdAt));
 
   return (
     <div className="bg-base-white px-5 py-2 flex flex-col gap-6 rounded-md">

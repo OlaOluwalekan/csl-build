@@ -5,16 +5,19 @@ import {
   authSliceInitialState,
   ResetPasswordPayload,
 } from "../types/auth.interface";
-import axios from "axios";
 import {
   addAdminToLocalStorage,
+  addTokenToLocalStorage,
   getAdminFromLocalStorage,
+  getTokenFromLocalStorage,
 } from "../utils/localStorage";
+import customFetch from "../utils/axios";
 
 const initialState: authSliceInitialState = {
   isAuthenticated: false,
   isLoading: false,
   admin: getAdminFromLocalStorage(),
+  token: getTokenFromLocalStorage(),
 };
 
 export const createAdmin = createAsyncThunk<
@@ -23,10 +26,7 @@ export const createAdmin = createAsyncThunk<
   { rejectValue: any }
 >("auth/createAdmin", async (payload, thunkAPI) => {
   try {
-    const { data } = await axios.post(
-      "http://localhost:3100/api/v1/admin/signup",
-      payload
-    );
+    const { data } = await customFetch.post("admin/signup", payload);
     // console.log(data);
     return data;
   } catch (error: any) {
@@ -41,10 +41,7 @@ export const loginAdmin = createAsyncThunk<
   { rejectValue: any }
 >("auth/loginAdmin", async (payload, thunkAPI) => {
   try {
-    const { data } = await axios.post(
-      "http://localhost:3100/api/v1/admin/signin",
-      payload
-    );
+    const { data } = await customFetch.post("admin/signin", payload);
     // console.log(data);
     return data;
   } catch (error: any) {
@@ -59,8 +56,8 @@ export const sendPasswordResetEmail = createAsyncThunk<
   { rejectValue: any }
 >("auth/sendPasswordResetEmail", async (payload, thunkAPI) => {
   try {
-    const { data } = await axios.post(
-      "http://localhost:3100/api/v1/admin/forget-password-email",
+    const { data } = await customFetch.post(
+      "admin/forget-password-email",
       payload
     );
     // console.log(data)
@@ -78,8 +75,8 @@ export const resetPassword = createAsyncThunk<
 >("auth/resetPassword", async (payload, thunkAPI) => {
   console.log(payload);
   try {
-    const { data } = await axios.patch(
-      "http://localhost:3100/api/v1/admin/forget-password-reset",
+    const { data } = await customFetch.patch(
+      "admin/forget-password-reset",
       payload
     );
     return data;
@@ -112,7 +109,9 @@ const authSlice = createSlice({
       .addCase(loginAdmin.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.admin = payload.data.admin;
+        state.token = payload.data.token;
         addAdminToLocalStorage(payload.data.admin);
+        addTokenToLocalStorage(payload.data.token);
       })
       .addCase(loginAdmin.rejected, (state, { payload }) => {
         state.isLoading = false;

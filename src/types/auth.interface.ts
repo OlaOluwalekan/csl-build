@@ -2,6 +2,7 @@ export interface authSliceInitialState {
   isAuthenticated: boolean;
   isLoading: boolean;
   admin: AdminProps | null;
+  token: string | null;
 }
 
 export interface AdminPayloadProps {

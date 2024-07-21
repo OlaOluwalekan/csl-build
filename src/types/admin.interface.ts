@@ -5,6 +5,7 @@ interface PasswordResetToken {
 
 export interface OrganizationProps {
   _id: string;
+  __v?: string;
   organisationName: string;
   phoneNumber: string;
   email: string;
@@ -22,4 +23,17 @@ export interface OrganizationProps {
   updatedAt: Date | string;
 }
 
-export type OrganizationType = OrganizationProps[];
+export interface RequestsInitialStateProps {
+  isLoading: boolean;
+  organizations: Array<OrganizationProps>;
+  filter: { field: string; value: string };
+}
+
+export interface RequestsResponseProps {
+  success: boolean;
+  data: {
+    message: string;
+    count: number;
+    accounts: OrganizationProps[];
+  };
+}
