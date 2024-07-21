@@ -2,13 +2,29 @@ import { FaChevronRight } from "react-icons/fa6";
 import { OrganizationProps } from "../../types/admin.interface";
 import Heading3 from "../ui/headings/Heading3";
 import clsx from "clsx";
-import { formatDate, generateRandomPassword } from "../../utils/helpers";
-import { useState } from "react";
+import { formatDate } from "../../utils/helpers";
+import { FormEvent, useState } from "react";
 import SmallRoundedButton from "../ui/buttons/SmallRoundedButton";
+import {
+  generateRandomPassword,
+  sendAccountEmail,
+} from "../../features/requestsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import OverlayLoading from "../loading/OverlayLoading";
 
 const Request = ({ data }: { data: OrganizationProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [mailResponse, setMailResponse] = useState({
+    success: false,
+    message: "",
+  });
+  const dispatch = useDispatch<AppDispatch>();
+  const { fetchingPassword, sendingAccountEmail } = useSelector(
+    (store: RootState) => store.requests
+  );
 
   const date = formatDate(data.createdAt);
 
@@ -17,9 +33,44 @@ const Request = ({ data }: { data: OrganizationProps }) => {
   };
 
   const generatePassword = () => {
-    const pass = generateRandomPassword();
-    setPassword(pass);
+    dispatch(generateRandomPassword()).then((res) => {
+      if (res.payload.success) {
+        setPassword(res.payload.data.tempPass);
+      } else {
+        setError(res.payload.message);
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
+      // console.log(res);
+    });
+    // console.log("HELLO PASSWORD");
   };
+
+  const handleSubmit = (
+    e: FormEvent<HTMLFormElement>,
+    email: string,
+    organisationName: string
+  ) => {
+    e.preventDefault();
+    dispatch(
+      sendAccountEmail({ email, organisationName, tempPass: password })
+    ).then((res) => {
+      // if (res.payload.success) {
+      //   console.log(res);
+      // } else {
+      setMailResponse({
+        success: res.payload.success,
+        message: res.payload.message,
+      });
+      setTimeout(() => {
+        setMailResponse({ success: false, message: "" });
+      }, 3000);
+      // }
+    });
+  };
+
+  console.log(mailResponse);
 
   return (
     <div className="bg-base-white shadow-md rounded-lg p-3">
@@ -95,8 +146,17 @@ const Request = ({ data }: { data: OrganizationProps }) => {
             </div>
             <div>
               <article className="w-full text-center border-[1px] border-indigo-red rounded py-3 flex justify-center items-center">
-                <p className="w-[60%] text-light-grey text-xs">
-                  {password
+                <p
+                  className={clsx(
+                    "w-[60%] text-xs",
+                    error ? "text-error" : "text-light-grey"
+                  )}
+                >
+                  {data.tempPassword
+                    ? data.tempPassword
+                    : error
+                    ? error
+                    : password
                     ? password
                     : "Generate password for your client to login"}
                 </p>
@@ -109,7 +169,10 @@ const Request = ({ data }: { data: OrganizationProps }) => {
             </div>
           </div>
           <div className="divider"></div>
-          <form className="flex flex-col items-center gap-2">
+          <form
+            className="flex flex-col items-center gap-2"
+            onSubmit={(e) => handleSubmit(e, data.email, data.organisationName)}
+          >
             <input
               type="hidden"
               value={password}
@@ -119,9 +182,21 @@ const Request = ({ data }: { data: OrganizationProps }) => {
               When you verify account, you give user full access to use their
               account.
             </p>
-            <article className="w-fit text-center border-[1px] border-error rounded py-3 px-2 flex justify-center items-center">
-              <p className="text-xs text-error">
-                Generate password first before you can verify account
+            <article
+              className={clsx(
+                "w-fit text-center border-[1px] rounded py-3 px-2 flex justify-center items-center",
+                mailResponse.success ? "border-success" : "border-error"
+              )}
+            >
+              <p
+                className={clsx(
+                  "text-xs",
+                  mailResponse.success ? "text-success" : "text-error"
+                )}
+              >
+                {mailResponse.message
+                  ? mailResponse.message
+                  : "Generate password first before you can verify account"}
               </p>
             </article>
             <SmallRoundedButton
@@ -133,6 +208,14 @@ const Request = ({ data }: { data: OrganizationProps }) => {
           </form>
         </section>
       </div>
+      {fetchingPassword && (
+        <OverlayLoading text="Fetching Password! Please wait..." />
+      )}
+      {sendingAccountEmail && (
+        <OverlayLoading
+          text={`Sending Email to ${data.organisationName}! Please wait...`}
+        />
+      )}
     </div>
   );
 };

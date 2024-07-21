@@ -27,6 +27,8 @@ export interface RequestsInitialStateProps {
   isLoading: boolean;
   organizations: Array<OrganizationProps>;
   filter: { field: string; value: string };
+  fetchingPassword: boolean;
+  sendingAccountEmail: boolean;
 }
 
 export interface RequestsResponseProps {
@@ -36,4 +38,22 @@ export interface RequestsResponseProps {
     count: number;
     accounts: OrganizationProps[];
   };
+}
+
+export interface GeneratePasswordResponse {
+  success: boolean;
+  data: {
+    message: string;
+    tempPass: string;
+  };
+}
+
+export interface SendAccountEmailResponse extends GeneratePasswordResponse {
+  account: OrganizationProps;
+}
+
+export interface AccountEmailProps {
+  email: string;
+  tempPass: string;
+  organisationName: string;
 }
