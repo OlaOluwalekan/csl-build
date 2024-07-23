@@ -43,6 +43,8 @@ const DateInput = ({
         fixedHeight
         showMonthDropdown
         showYearDropdown
+        dropdownMode="select"
+        peekNextMonth
       />
     </div>
   );
