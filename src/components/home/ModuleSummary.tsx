@@ -5,29 +5,7 @@ import Summary from "./Summary";
 import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
 import { getOrgRequests } from "../../features/requestsSlice";
-
-const moduleArray = [
-  {
-    id: "hotel",
-    label: "Hotel",
-    icon: "/images/hotel.svg",
-  },
-  {
-    id: "restaurant",
-    label: "Restaurant",
-    icon: "/images/restaurant.svg",
-  },
-  {
-    id: "spa",
-    label: "Spa",
-    icon: "/images/spa.svg",
-  },
-  {
-    id: "crm",
-    label: "CRM",
-    icon: "/images/crm.svg",
-  },
-];
+import { moduleArray } from "../../data/module";
 
 const ModuleSummary = () => {
   const dispatch = useDispatch<AppDispatch>();

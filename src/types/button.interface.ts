@@ -13,4 +13,6 @@ export interface LinkBtnProps extends GeneralBtnProps {
   href: string;
 }
 
-export interface OutlineBtnProps extends BasicBtnProps {}
+export interface OutlineBtnProps extends BasicBtnProps {
+  classStyles?: string;
+}

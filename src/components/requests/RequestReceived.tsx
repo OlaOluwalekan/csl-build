@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../store";
 import { useEffect, useState } from "react";
 import { getOrgRequests } from "../../features/requestsSlice";
 import SectionLoading from "../loading/SectionLoading";
+import { moduleMap } from "../../data/module";
 
 const RequestReceived = () => {
   const { isLoading, organizations, filter } = useSelector(
@@ -53,9 +54,10 @@ const RequestReceived = () => {
         <div className="text-center py-4">
           {filter.field === "all" && <p>You haven't received any request</p>}
           {filter.field === "module" && (
-            <p>No {filter.value.toUpperCase()} requests yet</p>
+            <p>No {moduleMap[filter.value]} requests yet</p>
           )}
           {filter.field === "status" && <p>No {filter.value} requests yet</p>}
+          {filter.field === "search" && <p>No request matches your search</p>}
         </div>
       ) : (
         <div className="flex flex-col gap-4 my-3">

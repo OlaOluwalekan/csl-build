@@ -2,7 +2,13 @@ import clsx from "clsx";
 import Heading3 from "../ui/headings/Heading3";
 import { OrganizationProps } from "../../types/admin.interface";
 
-const TrialLevelBar = ({ data }: { data: OrganizationProps }) => {
+const TrialLevelBar = ({
+  data,
+  showOrgName = true,
+}: {
+  data: OrganizationProps;
+  showOrgName?: boolean;
+}) => {
   const createdDate = new Date(data.createdAt);
   const today = new Date();
   const diffMilSecs = today.getTime() - createdDate.getTime();
@@ -14,12 +20,9 @@ const TrialLevelBar = ({ data }: { data: OrganizationProps }) => {
     w = (diffDays / 30) * 100;
   }
 
-  // console.log(diffDays, " : ", w);
-  // console.log(new Date(data.createdAt));
-
   return (
     <div className="bg-base-white px-5 py-2 flex flex-col gap-6 rounded-md">
-      <Heading3 text={data.organisationName} />
+      {showOrgName && <Heading3 text={data.organisationName} />}
       <div>
         <section className="w-full h-2 bg-light-grey rounded">
           <article
@@ -33,7 +36,7 @@ const TrialLevelBar = ({ data }: { data: OrganizationProps }) => {
           >
             <span
               className={clsx(
-                "absolute top-[-18px] text-xs block",
+                "absolute top-[-18px] text-xs block text-nowrap",
                 diffDays < 1
                   ? "right-[-40px]"
                   : diffDays < 2

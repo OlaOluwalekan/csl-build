@@ -56,9 +56,6 @@ const Request = ({ data }: { data: OrganizationProps }) => {
     dispatch(
       sendAccountEmail({ email, organisationName, tempPass: password })
     ).then((res) => {
-      // if (res.payload.success) {
-      //   console.log(res);
-      // } else {
       setMailResponse({
         success: res.payload.success,
         message: res.payload.message,
@@ -66,11 +63,10 @@ const Request = ({ data }: { data: OrganizationProps }) => {
       setTimeout(() => {
         setMailResponse({ success: false, message: "" });
       }, 3000);
-      // }
     });
   };
 
-  console.log(mailResponse);
+  // console.log(mailResponse);
 
   return (
     <div className="bg-base-white shadow-md rounded-lg p-3">

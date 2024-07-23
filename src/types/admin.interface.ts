@@ -21,6 +21,8 @@ export interface OrganizationProps {
   isPublish: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
+  paymentDate: Date | string | null;
+  publishedDate: Date | string | null;
 }
 
 export interface RequestsInitialStateProps {
@@ -31,7 +33,7 @@ export interface RequestsInitialStateProps {
   sendingAccountEmail: boolean;
 }
 
-export interface RequestsResponseProps {
+export interface AllOrgsResponseProps {
   success: boolean;
   data: {
     message: string;
@@ -56,4 +58,12 @@ export interface AccountEmailProps {
   email: string;
   tempPass: string;
   organisationName: string;
+}
+
+export interface ClientInitialStateProps {
+  isLoading: boolean;
+  organizations: Array<OrganizationProps>;
+  filter: { field: string; value: string | boolean };
+  // fetchingPassword: boolean;
+  // sendingAccountEmail: boolean;
 }

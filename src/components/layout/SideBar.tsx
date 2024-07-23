@@ -46,7 +46,12 @@ const SideBar = () => {
         </section>
 
         <section className="my-16">
-          <OutlineButton text="Logout" type="button" onClick={logoutAdmin} />
+          <OutlineButton
+            text="Logout"
+            type="button"
+            onClick={logoutAdmin}
+            classStyles="w-full"
+          />
         </section>
       </div>
     </nav>

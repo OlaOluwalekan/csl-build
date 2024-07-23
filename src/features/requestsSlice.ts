@@ -3,7 +3,7 @@ import {
   AccountEmailProps,
   GeneratePasswordResponse,
   RequestsInitialStateProps,
-  RequestsResponseProps,
+  AllOrgsResponseProps,
   SendAccountEmailResponse,
 } from "../types/admin.interface";
 import customFetch from "../utils/axios";
@@ -18,7 +18,7 @@ const initialState: RequestsInitialStateProps = {
 };
 
 export const getOrgRequests = createAsyncThunk<
-  RequestsResponseProps,
+  AllOrgsResponseProps,
   void,
   { rejectValue: any }
 >("request/getOrgRequests", async (_, thunkAPI) => {
