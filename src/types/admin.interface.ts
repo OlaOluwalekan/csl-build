@@ -67,3 +67,38 @@ export interface ClientInitialStateProps {
   // fetchingPassword: boolean;
   // sendingAccountEmail: boolean;
 }
+
+export interface AdminProfileProps {
+  _id: string;
+  profileUrl: string | null;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string | null;
+  gender: string | null;
+  dateOfBirth: string | Date | null;
+  address: string | null;
+  bankName: string | null;
+  accountNumber: string | null;
+  accountName: string | null;
+  accountType: string | null;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface AdminProfileInitialStateProps {
+  isLoading: boolean;
+  adminProfile: AdminProfileProps | null;
+  editBasicInfo: boolean;
+  editBankDetails: boolean;
+  editPassword: boolean;
+}
+
+export interface AdminProfileFetchResponse {
+  success: boolean;
+  data: {
+    message: string;
+    adminProfile: AdminProfileProps;
+  };
+}

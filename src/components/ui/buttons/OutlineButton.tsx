@@ -12,7 +12,7 @@ const OutlineButton = ({
     <button
       type={type}
       className={clsx(
-        "bg-base-white text-indigo-red font-bold py-3 rounded-full border-2 border-indigo-red",
+        "bg-base-white text-indigo-red font-bold py-2 rounded-full border-2 border-indigo-red",
         disabled
           ? "cursor-not-allowed opacity-50"
           : "cursor-pointer opacity-100",

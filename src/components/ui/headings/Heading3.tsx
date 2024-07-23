@@ -8,7 +8,7 @@ const Heading3 = ({
   styleClass?: string;
 }) => {
   return (
-    <h3 title={text} className={clsx("text-sm font-semibold", styleClass)}>
+    <h3 title={text} className={clsx("font-semibold", styleClass)}>
       {text}
     </h3>
   );

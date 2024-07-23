@@ -3,6 +3,7 @@ import generalSlice from "./features/generalSlice";
 import authSlice from "./features/authSlice";
 import requestsSlice from "./features/requestsSlice";
 import clientsSlice from "./features/clientsSlice";
+import adminSlice from "./features/adminSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authSlice,
     requests: requestsSlice,
     clients: clientsSlice,
+    admin: adminSlice,
   },
 });
 
