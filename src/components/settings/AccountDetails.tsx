@@ -15,9 +15,9 @@ const AccountDetails = ({ data }: { data: AdminProfileProps | null }) => {
   return (
     <ProfileWrapper>
       <div>
-        <Heading3 text="Account Details" styleClass="text-lg" />
+        <Heading3 text="Account Details" styleClass="text-lg mb-3" />
         <div className="tablet:flex tablet:gap-5 laptop:flex-col laptop:gap-3 desktop:flex-row desktop:gap-20">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mb-2">
             <Info
               label="Bank Name"
               value={data?.bankName ? data.bankName : "N/A"}

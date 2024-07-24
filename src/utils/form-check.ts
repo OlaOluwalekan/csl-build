@@ -29,28 +29,44 @@ export const checkFormData = (
   //     return { hasErrors: true };
   //   }
   // }
-  if ((formData.password && page == "register") || page == "reset-password") {
+  if (
+    (formData.password && page == "register") ||
+    page == "reset-password" ||
+    page == "settings"
+  ) {
     const regex = /^(?=.*[a-z])/;
     if (!regex.test(formData.password as string)) {
       cb("Password must contain at least a lowercase", "error");
       return { hasErrors: true };
     }
   }
-  if ((formData.password && page == "register") || page == "reset-password") {
+  if (
+    (formData.password && page == "register") ||
+    page == "reset-password" ||
+    page == "settings"
+  ) {
     const regex = /^(?=.*[A-Z])/;
     if (!regex.test(formData.password as string)) {
       cb("Password must contain at least an uppercase", "error");
       return { hasErrors: true };
     }
   }
-  if ((formData.password && page == "register") || page == "reset-password") {
+  if (
+    (formData.password && page == "register") ||
+    page == "reset-password" ||
+    page == "settings"
+  ) {
     const regex = /^(?=.*\d)/;
     if (!regex.test(formData.password as string)) {
       cb("Password must contain at least an number", "error");
       return { hasErrors: true };
     }
   }
-  if ((formData.password && page == "register") || page == "reset-password") {
+  if (
+    (formData.password && page == "register") ||
+    page == "reset-password" ||
+    page == "settings"
+  ) {
     const regex = /^(?=.*[@#$!%*?&])/;
     if (!regex.test(formData.password as string)) {
       cb(
@@ -60,7 +76,11 @@ export const checkFormData = (
       return { hasErrors: true };
     }
   }
-  if ((formData.password && page == "register") || page == "reset-password") {
+  if (
+    (formData.password && page == "register") ||
+    page == "reset-password" ||
+    page == "settings"
+  ) {
     const regex = /^.{6,}$/;
     if (!regex.test(formData.password as string)) {
       cb("Password must be at least 6 characters long", "error");

@@ -50,21 +50,13 @@ const AccountDetailsForm = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append("bankName", accountInfo.bankName);
-    formData.append("accountName", accountInfo.accountName);
-    formData.append("accountNumber", accountInfo.accountNumber);
-    formData.append("accountType", accountInfo.accountType);
-
-    // for (const key in accountInfo) {
-    //   formData.append(key, (accountInfo as any)[key]);
-    // }
-    // console.log(formData);
+    for (const key in accountInfo) {
+      formData.append(key, (accountInfo as any)[key]);
+    }
 
     dispatch(
       updateAccountDetails({ id: adminProfile?._id, data: formData })
     ).then((res) => {
-      console.log(res);
-
       if (res.payload.success) {
         dispatch(setEditBankDetails(false));
         toast.success(res.payload.data.message);
@@ -76,9 +68,12 @@ const AccountDetailsForm = () => {
 
   return (
     <FormOverlay>
-      <FormWrapper text="Basic Information" styleClass="top-0 bottom-0 my-auto">
+      <FormWrapper
+        text="Basic Information"
+        styleClass="top-0 bottom-0 my-auto max-w-[800px]"
+      >
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-2 desktop:grid desktop:grid-cols-2 mb-2">
+          <div className="flex flex-col gap-2 desktop:grid desktop:grid-cols-1 mb-2">
             <LabelledInput
               type="text"
               value={accountInfo.bankName}
@@ -90,7 +85,7 @@ const AccountDetailsForm = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-2 desktop:grid desktop:grid-cols-2 mb-2">
+          <div className="flex flex-col gap-2 desktop:grid desktop:grid-cols-1 mb-2">
             <LabelledInput
               type="text"
               value={accountInfo.accountName}
@@ -111,8 +106,6 @@ const AccountDetailsForm = () => {
               id="accountNumber"
               name="accountNumber"
               handleChange={handleChange}
-              numericOnly={true}
-              // readonly={true}
             />
             <LabelledInput
               type="text"

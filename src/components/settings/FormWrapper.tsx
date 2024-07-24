@@ -18,7 +18,7 @@ const FormWrapper = ({
   return (
     <div
       className={clsx(
-        "w-[90%] max-w-[800px] h-fit mx-auto bg-base-white px-3 py-5 rounded-md shadow-lg absolute left-0 right-0",
+        "w-[90%] h-fit mx-auto bg-base-white px-3 py-5 rounded-md shadow-lg absolute left-0 right-0",
         styleClass
       )}
       onClick={handleClick}

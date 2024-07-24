@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
 import { getAdminProfile } from "../../features/adminSlice";
 import AccountDetails from "./AccountDetails";
+import AccountSecurity from "./AccountSecurity";
 
 const AdminSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,15 +15,12 @@ const AdminSettings = () => {
     dispatch(getAdminProfile());
   }, []);
 
-  useEffect(() => {
-    console.log(adminProfile);
-  }, [adminProfile]);
-
   return (
     <div>
       <Heading2 text="Settings" />
       <BasicInfo data={adminProfile} />
       <AccountDetails data={adminProfile} />
+      <AccountSecurity />
     </div>
   );
 };

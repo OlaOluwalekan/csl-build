@@ -61,8 +61,6 @@ export const updateAccountDetails = createAsyncThunk<
   { rejectValue: any }
 >("admin/updateAccountDetails", async (payload, thunkAPI) => {
   try {
-    console.log(payload);
-
     const { data } = await customFetch.patch(
       `admin/account-details/${payload.id}`,
       payload.data,
@@ -73,7 +71,25 @@ export const updateAccountDetails = createAsyncThunk<
         },
       }
     );
-    // console.log(data);
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+export const updatePassword = createAsyncThunk<
+  AdminProfileUpdateResponse,
+  any,
+  { rejectValue: any }
+>("admin/updatePassword", async (payload, thunkAPI) => {
+  try {
+    const { data } = await customFetch.patch(`admin/change-password`, payload, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    });
     return data;
   } catch (error: any) {
     console.log(error);
@@ -125,6 +141,16 @@ const adminSlice = createSlice({
         state.adminProfile = payload.data.updatedProfile;
       })
       .addCase(updateAccountDetails.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.isLoading = false;
+        // state.adminProfile = payload.data.updatedProfile;
+      })
+      .addCase(updatePassword.rejected, (state) => {
         state.isLoading = false;
       });
   },

@@ -115,7 +115,7 @@ const BasicInfoForm = () => {
 
   return (
     <FormOverlay>
-      <FormWrapper text="Basic Information" styleClass="my-4">
+      <FormWrapper text="Basic Information" styleClass="my-4 max-w-[800px]">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-4 items-center">
             <ProfileImage
