@@ -64,3 +64,7 @@ export const generateRandomPassword = () => {
 
   return password;
 };
+
+export const simpleDateFormatting = (date: string | Date) => {
+  return format(new Date(date), "dd/MM/yyyy");
+};

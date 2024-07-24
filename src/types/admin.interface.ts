@@ -102,3 +102,11 @@ export interface AdminProfileFetchResponse {
     adminProfile: AdminProfileProps;
   };
 }
+
+export interface AdminProfileUpdateResponse {
+  success: boolean;
+  data: {
+    message: string;
+    updatedProfile: AdminProfileProps;
+  };
+}

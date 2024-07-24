@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   AdminProfileFetchResponse,
   AdminProfileInitialStateProps,
+  AdminProfileUpdateResponse,
 } from "../types/admin.interface";
 import customFetch from "../utils/axios";
-import { getAdminFromLocalStorage } from "../utils/localStorage";
 
 const initialState: AdminProfileInitialStateProps = {
   isLoading: false,
@@ -32,16 +32,19 @@ export const getAdminProfile = createAsyncThunk<
 });
 
 export const updateAdminBasicInfo = createAsyncThunk<
-  AdminProfileFetchResponse,
+  AdminProfileUpdateResponse,
   any,
   { rejectValue: any }
 >("admin/updateAdminBasicInfo", async (payload, thunkAPI) => {
   try {
     const { data } = await customFetch.patch(
-      `admin/basic-information/${getAdminFromLocalStorage()?._id}`,
-      payload,
+      `admin/basic-information/${payload.id}`,
+      payload.data,
       {
-        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
       }
     );
     // console.log(data);
@@ -76,6 +79,16 @@ const adminSlice = createSlice({
         state.adminProfile = payload.data.adminProfile;
       })
       .addCase(getAdminProfile.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateAdminBasicInfo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAdminBasicInfo.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.adminProfile = payload.data.updatedProfile;
+      })
+      .addCase(updateAdminBasicInfo.rejected, (state) => {
         state.isLoading = false;
       });
   },

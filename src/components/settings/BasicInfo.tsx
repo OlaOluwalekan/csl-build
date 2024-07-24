@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import ProfileImage from "../profile/ProfileImage";
 import { setEditBasicInfo } from "../../features/adminSlice";
+import { simpleDateFormatting } from "../../utils/helpers";
 
 const BasicInfo = ({ data }: { data: AdminProfileProps | null }) => {
   const { editBasicInfo } = useSelector((store: RootState) => store.admin);
@@ -18,10 +19,10 @@ const BasicInfo = ({ data }: { data: AdminProfileProps | null }) => {
       <div>
         <Heading3 text="Basic Information" styleClass="text-lg" />
         <div className="tablet:flex tablet:gap-5 laptop:flex-col laptop:gap-3 desktop:flex-row desktop:gap-20">
-          <section className="flex items-center">
+          <section className="flex items-center gap-3">
             <ProfileImage
               url={data?.profileUrl as string}
-              styleClass="w-[130px] tablet:w-[190px]"
+              styleClass="w-[120px] tablet:w-[190px]"
             />
             <div className="flex flex-col gap-2">
               <Info
@@ -57,7 +58,7 @@ const BasicInfo = ({ data }: { data: AdminProfileProps | null }) => {
               label="Date of Birth"
               value={
                 data?.dateOfBirth
-                  ? new Date(data.dateOfBirth).toLocaleDateString()
+                  ? simpleDateFormatting(data.dateOfBirth)
                   : "N/A"
               }
               // styleClass="hidden tablet:flex"
@@ -69,7 +70,7 @@ const BasicInfo = ({ data }: { data: AdminProfileProps | null }) => {
             />
           </section>
         </div>
-        <article className="flex justify-end">
+        <article className="flex justify-end my-5">
           <OutlineButton
             type="button"
             text="Edit"

@@ -4,7 +4,7 @@ const ProfileImage = ({
   url,
   styleClass,
 }: {
-  url: string;
+  url?: string;
   styleClass?: string;
 }) => {
   return (

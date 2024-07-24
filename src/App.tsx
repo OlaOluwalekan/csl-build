@@ -11,6 +11,8 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ClientProfile from "./pages/ClientProfile";
 import Settings from "./pages/Settings";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -38,6 +40,13 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        hideProgressBar={true}
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../profile/ProfileImage";
 import FormOverlay from "./FormOverlay";
 import FormWrapper from "./FormWrapper";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { PiNotePencilBold } from "react-icons/pi";
 import { TbTrash } from "react-icons/tb";
 import LabelledInput from "../ui/inputs/LabelledInput";
@@ -10,6 +10,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import SelectInput from "../ui/inputs/SelectInput";
 import DateInput from "../ui/inputs/DateInput";
 import OutlineButton from "../ui/buttons/OutlineButton";
+import {
+  setEditBasicInfo,
+  updateAdminBasicInfo,
+} from "../../features/adminSlice";
+import OverlayLoading from "../loading/OverlayLoading";
+import { toast } from "react-toastify";
 
 interface BasicInfoFormDataProps {
   firstName: string;
@@ -27,7 +33,9 @@ const genderOptions = [
 ];
 
 const BasicInfoForm = () => {
-  const { adminProfile } = useSelector((store: RootState) => store.admin);
+  const { adminProfile, isLoading } = useSelector(
+    (store: RootState) => store.admin
+  );
   const [basicInfo, setBasicInfo] = useState<BasicInfoFormDataProps>({
     firstName: "",
     lastName: "",
@@ -38,6 +46,9 @@ const BasicInfoForm = () => {
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+
+  // console.log(adminProfile);
 
   useEffect(() => {
     setBasicInfo({
@@ -76,16 +87,30 @@ const BasicInfoForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log({ ...basicInfo, profileUrl: imageFile });
     const formData = new FormData();
-    for (const key in basicInfo) {
-      formData.append(key, (basicInfo as any)[key]);
-    }
+    formData.append("phoneNumber", basicInfo.phoneNumber);
+    formData.append("dateOfBirth", basicInfo.dateOfBirth as string);
+    formData.append("address", basicInfo.address);
+    formData.append("gender", basicInfo.gender);
+    // for (const key in basicInfo) {
+    //   formData.append(key, (basicInfo as any)[key]);
+    // }
     if (imageFile) {
-      formData.append("profileImage", imageFile);
+      formData.append("profileUrl", imageFile);
     }
 
-    console.log(formData);
+    dispatch(
+      updateAdminBasicInfo({ id: adminProfile?._id, data: formData })
+    ).then((res) => {
+      console.log(res);
+
+      if (res.payload.success) {
+        dispatch(setEditBasicInfo(false));
+        toast.success(res.payload.data.message);
+      } else {
+        toast.error(res.payload.data.message);
+      }
+    });
   };
 
   return (
@@ -199,6 +224,7 @@ const BasicInfoForm = () => {
             />
           </article>
         </form>
+        {isLoading && <OverlayLoading text="Updating..." />}
       </FormWrapper>
     </FormOverlay>
   );
