@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../../store";
 import { PiNotePencilBold } from "react-icons/pi";
 import { TbTrash } from "react-icons/tb";
 import LabelledInput from "../ui/inputs/LabelledInput";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SelectInput from "../ui/inputs/SelectInput";
 import DateInput from "../ui/inputs/DateInput";
 import OutlineButton from "../ui/buttons/OutlineButton";
@@ -85,7 +85,7 @@ const BasicInfoForm = () => {
     setBasicInfo({ ...basicInfo, dateOfBirth: date?.toISOString() || "" });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("phoneNumber", basicInfo.phoneNumber);
@@ -102,7 +102,7 @@ const BasicInfoForm = () => {
     dispatch(
       updateAdminBasicInfo({ id: adminProfile?._id, data: formData })
     ).then((res) => {
-      console.log(res);
+      // console.log(res);
 
       if (res.payload.success) {
         dispatch(setEditBasicInfo(false));
@@ -115,7 +115,7 @@ const BasicInfoForm = () => {
 
   return (
     <FormOverlay>
-      <FormWrapper text="Basic Information">
+      <FormWrapper text="Basic Information" styleClass="my-4">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-4 items-center">
             <ProfileImage

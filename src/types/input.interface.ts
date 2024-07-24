@@ -5,6 +5,7 @@ interface GeneralInputProps {
   name?: string;
   readonly?: boolean;
   styleClass?: string;
+  numericOnly?: boolean;
 }
 
 export interface BasicInputProps extends GeneralInputProps {

@@ -4,6 +4,7 @@ import BasicInfo from "./BasicInfo";
 import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
 import { getAdminProfile } from "../../features/adminSlice";
+import AccountDetails from "./AccountDetails";
 
 const AdminSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +22,7 @@ const AdminSettings = () => {
     <div>
       <Heading2 text="Settings" />
       <BasicInfo data={adminProfile} />
+      <AccountDetails data={adminProfile} />
     </div>
   );
 };

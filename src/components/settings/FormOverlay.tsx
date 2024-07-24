@@ -1,12 +1,18 @@
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { setEditBasicInfo } from "../../features/adminSlice";
+import {
+  setEditBankDetails,
+  setEditBasicInfo,
+  setEditPassword,
+} from "../../features/adminSlice";
 
 const FormOverlay = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch();
 
   const handleClick = (e: any) => {
     dispatch(setEditBasicInfo(false));
+    dispatch(setEditBankDetails(false));
+    dispatch(setEditPassword(false));
     e.stopPropagation();
   };
 
