@@ -21,7 +21,7 @@ const TrialLevelBar = ({
   }
 
   return (
-    <div className="bg-base-white px-5 py-2 flex flex-col gap-6 rounded-md">
+    <div className="bg-base-white text-navy-blue px-5 py-2 flex flex-col gap-6 rounded-md">
       {showOrgName && <Heading3 text={data.organisationName} />}
       <div>
         <section className="w-full h-2 bg-light-grey rounded">

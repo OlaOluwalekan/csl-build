@@ -23,7 +23,7 @@ const ClientsList = () => {
   useEffect(() => {
     if (!isLoading) {
       const res: OrganizationProps[] = organizations.filter((org) => {
-        return org.status === "verified";
+        return org.status !== "verified";
       });
 
       if (filter.field === "all") {

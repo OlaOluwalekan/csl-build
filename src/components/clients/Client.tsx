@@ -16,11 +16,11 @@ const Client = ({ data }: { data: OrganizationProps }) => {
   };
 
   return (
-    <div className="bg-base-white shadow-md rounded-lg p-3">
+    <div className="bg-base-white shadow-md rounded-lg p-3 text-navy-blue">
       <div>
         {/* ACCORDION HEAD */}
         <section
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
           onClick={handleClick}
         >
           <section>

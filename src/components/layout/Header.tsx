@@ -7,7 +7,7 @@ const Header = () => {
       <div className="w-[95%] mx-auto py-2 flex justify-between items-center tablet:py-4">
         <HeaderRow1 />
 
-        <section className="hidden font-bold font-lato text-navy-blue laptop:flex">
+        <section className="hidden font-bold font-lato text-navy-blue text-lg laptop:flex laptop:text-2xl">
           Admin Board
         </section>
 

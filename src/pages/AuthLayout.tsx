@@ -12,9 +12,11 @@ const AuthLayout = () => {
       <div
         className={clsx(
           "bg-base-main relative py-6",
-          location.pathname === "/register" || location.pathname == "/login"
-            ? "h-[calc(130vh-150px)] tall:h-[700px]"
-            : "h-[calc(115vh-150px)] tall:h-[600px]"
+          location.pathname === "/register"
+            ? "h-[calc(130vh-150px)] tall:h-[650px] short:h-[calc(160vh-150px)]"
+            : location.pathname == "/login"
+            ? "h-[calc(120vh-150px)] tall:h-[600px] short:h-[calc(140vh-150px)]"
+            : "h-[calc(110vh-150px)] tall:h-[500px] short:h-[calc(120vh-150px)]"
         )}
       >
         <Outlet />

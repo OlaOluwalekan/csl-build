@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import SmallRoundedButton from "../ui/buttons/SmallRoundedButton";
 import {
   generateRandomPassword,
+  getOrgRequests,
   sendAccountEmail,
 } from "../../features/requestsSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,16 +15,17 @@ import { AppDispatch, RootState } from "../../store";
 import OverlayLoading from "../loading/OverlayLoading";
 import OutlineSmallRoundedButton from "../ui/buttons/OutlineSmallRoundedButton";
 import RequestDeletePopup from "./RequestDeletePopup";
+import { toast } from "react-toastify";
 
 const Request = ({ data }: { data: OrganizationProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
-  const [mailResponse, setMailResponse] = useState({
-    success: false,
-    message: "",
-  });
+  // const [mailResponse, setMailResponse] = useState({
+  //   success: false,
+  //   message: "",
+  // });
   const dispatch = useDispatch<AppDispatch>();
   const { fetchingPassword, sendingAccountEmail } = useSelector(
     (store: RootState) => store.requests
@@ -59,20 +61,27 @@ const Request = ({ data }: { data: OrganizationProps }) => {
     dispatch(
       sendAccountEmail({ email, organisationName, tempPass: password })
     ).then((res) => {
-      setMailResponse({
-        success: res.payload.success,
-        message: res.payload.message,
-      });
-      setTimeout(() => {
-        setMailResponse({ success: false, message: "" });
-      }, 3000);
+      if (res.payload.success) {
+        toast.success(res.payload.data.message);
+        dispatch(getOrgRequests());
+        setIsOpen(true);
+      } else {
+        toast.error(res.payload.message);
+      }
+      // setMailResponse({
+      //   success: res.payload.success,
+      //   message: res.payload.message,
+      // });
+      // setTimeout(() => {
+      //   setMailResponse({ success: false, message: "" });
+      // }, 3000);
     });
   };
 
   // console.log(mailResponse);
 
   return (
-    <div className="bg-base-white shadow-md rounded-lg p-3">
+    <div className="bg-base-white shadow-md rounded-lg p-3 text-navy-blue">
       <div>
         {/* ACCORDION HEAD */}
         <section
@@ -185,26 +194,18 @@ const Request = ({ data }: { data: OrganizationProps }) => {
             </p>
             <article
               className={clsx(
-                "w-full text-center border-[1px] rounded py-3 px-2 flex justify-center items-center tablet:w-fit",
-                mailResponse.success ? "border-success" : "border-error"
+                "w-full text-center border-[1px] rounded py-3 px-2 flex justify-center items-center tablet:w-fit border-error"
               )}
             >
-              <p
-                className={clsx(
-                  "text-xs",
-                  mailResponse.success ? "text-success" : "text-error"
-                )}
-              >
-                {mailResponse.message
-                  ? mailResponse.message
-                  : "Generate password first before you can verify account"}
+              <p className={clsx("text-xs text-error")}>
+                "Generate password first before you can verify account"
               </p>
             </article>
             <div className="flex flex-col w-full tablet:flex-row gap-3 justify-center my-2">
               <SmallRoundedButton
                 text="Verify Account"
                 type="submit"
-                disabled={!password}
+                disabled={!password || data.tempPassword ? true : false}
                 styleClass="w-full tablet:w-[250px]"
               />
               <OutlineSmallRoundedButton
