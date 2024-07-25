@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { organizations } from "../../mock/organizations-data";
 import Heading2 from "../ui/headings/Heading2";
 import Summary from "./Summary";
 import { AppDispatch, RootState } from "../../store";
@@ -18,7 +17,7 @@ const ModuleSummary = () => {
   return (
     <div>
       <Heading2 text="Modules" />
-      <div className="grid grid-cols-2 gap-4 my-3 laptop:flex flex-wrap large:grid-cols-1">
+      <div className="grid grid-cols-2 gap-4 my-3 desktop:flex flex-wrap large:grid-cols-1">
         {moduleArray.map((module: any) => {
           return <Summary key={module.id} {...module} data={organizations} />;
         })}
@@ -28,5 +27,3 @@ const ModuleSummary = () => {
 };
 
 export default ModuleSummary;
-
-// flex flex-wrap gap-4 justify-center items-center

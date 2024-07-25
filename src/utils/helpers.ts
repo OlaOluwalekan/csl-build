@@ -20,12 +20,8 @@ export const showAlert = (
 };
 
 export const formatDate = (date: string | Date) => {
-  console.log(date);
-
   const d = new Date(date);
   const now = new Date();
-
-  console.log(d);
 
   const secDiff = differenceInSeconds(now, d);
   const minDiff = differenceInMinutes(now, d);
@@ -45,7 +41,6 @@ export const formatDate = (date: string | Date) => {
     res = "yesterday";
   } else {
     res = format(d, "dd/MM/yyyy");
-    console.log(res);
   }
 
   return res;

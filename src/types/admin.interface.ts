@@ -31,6 +31,7 @@ export interface RequestsInitialStateProps {
   filter: { field: string; value: string };
   fetchingPassword: boolean;
   sendingAccountEmail: boolean;
+  deletingAccount: boolean;
 }
 
 export interface AllOrgsResponseProps {
@@ -108,5 +109,13 @@ export interface AdminProfileUpdateResponse {
   data: {
     message: string;
     updatedProfile: AdminProfileProps;
+  };
+}
+
+export interface AdminProfileImageDeleteResponse {
+  success: boolean;
+  data: {
+    message: string;
+    updateProfile: AdminProfileProps;
   };
 }

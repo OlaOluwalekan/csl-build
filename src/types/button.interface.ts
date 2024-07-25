@@ -6,7 +6,7 @@ interface GeneralBtnProps {
 
 export interface BasicBtnProps extends GeneralBtnProps {
   onClick?: () => void;
-  w?: string;
+  styleClass?: string;
 }
 
 export interface LinkBtnProps extends GeneralBtnProps {

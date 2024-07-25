@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   AdminProfileFetchResponse,
+  AdminProfileImageDeleteResponse,
   AdminProfileInitialStateProps,
   AdminProfileUpdateResponse,
 } from "../types/admin.interface";
@@ -97,6 +98,28 @@ export const updatePassword = createAsyncThunk<
   }
 });
 
+export const deleteProfileImage = createAsyncThunk<
+  AdminProfileImageDeleteResponse,
+  string,
+  { rejectValue: any }
+>("admin/deleteProfileImage", async (payload, thunkAPI) => {
+  try {
+    const { data } = await customFetch.delete(
+      `admin/profile-image/${payload}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -151,6 +174,16 @@ const adminSlice = createSlice({
         // state.adminProfile = payload.data.updatedProfile;
       })
       .addCase(updatePassword.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteProfileImage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteProfileImage.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.adminProfile = payload.data.updateProfile;
+      })
+      .addCase(deleteProfileImage.rejected, (state) => {
         state.isLoading = false;
       });
   },

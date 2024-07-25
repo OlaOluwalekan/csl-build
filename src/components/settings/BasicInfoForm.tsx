@@ -11,11 +11,14 @@ import SelectInput from "../ui/inputs/SelectInput";
 import DateInput from "../ui/inputs/DateInput";
 import OutlineButton from "../ui/buttons/OutlineButton";
 import {
+  deleteProfileImage,
+  getAdminProfile,
   setEditBasicInfo,
   updateAdminBasicInfo,
 } from "../../features/adminSlice";
 import OverlayLoading from "../loading/OverlayLoading";
 import { toast } from "react-toastify";
+import clsx from "clsx";
 
 interface BasicInfoFormDataProps {
   firstName: string;
@@ -62,14 +65,38 @@ const BasicInfoForm = () => {
   }, [adminProfile]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.files[0]);
+
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      // console.log(file);
+      if (!file.type.startsWith("image/")) {
+        toast.error("Invalid file type. Please select an image.");
+        return;
+      }
+
       setImageFile(file);
       setImagePreviewUrl(URL.createObjectURL(file));
     }
   };
 
-  // console.log(formData);
+  const handleDeleteImage = () => {
+    setImageFile(null);
+    setImagePreviewUrl(null);
+    if (!imagePreviewUrl) {
+      dispatch(deleteProfileImage(adminProfile?._id as string)).then((res) => {
+        // console.log(res);
+
+        if (res.payload.success) {
+          toast.success(res.payload.data.message);
+          dispatch(setEditBasicInfo(false));
+          dispatch(getAdminProfile());
+        } else {
+          toast.error(res.payload.message);
+        }
+      });
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -132,6 +159,7 @@ const BasicInfoForm = () => {
                 name="profileImage"
                 id="profileImage"
                 className="hidden"
+                accept="image/*"
                 onChange={handleFileChange}
               />
               <label
@@ -143,7 +171,14 @@ const BasicInfoForm = () => {
               </label>
               <button
                 type="button"
-                className="flex items-center gap-2 bg-indigo-red text-base-white px-4 py-1.5 text-xs rounded-full cursor-pointer"
+                className={clsx(
+                  "flex items-center gap-2 text-base-white px-4 py-1.5 text-xs rounded-full",
+                  !imagePreviewUrl && !adminProfile?.profileUrl
+                    ? "opacity-50 bg-base-grey cursor-not-allowed"
+                    : "opacity-100 bg-indigo-red cursor-pointer"
+                )}
+                disabled={!imagePreviewUrl && !adminProfile?.profileUrl}
+                onClick={handleDeleteImage}
               >
                 <TbTrash />
                 <span className="hidden tablet:block">Delete Picture</span>

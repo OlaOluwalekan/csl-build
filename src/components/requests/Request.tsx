@@ -12,11 +12,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import OverlayLoading from "../loading/OverlayLoading";
+import OutlineSmallRoundedButton from "../ui/buttons/OutlineSmallRoundedButton";
+import RequestDeletePopup from "./RequestDeletePopup";
 
 const Request = ({ data }: { data: OrganizationProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [mailResponse, setMailResponse] = useState({
     success: false,
     message: "",
@@ -73,7 +76,7 @@ const Request = ({ data }: { data: OrganizationProps }) => {
       <div>
         {/* ACCORDION HEAD */}
         <section
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
           onClick={handleClick}
         >
           <section>
@@ -161,6 +164,8 @@ const Request = ({ data }: { data: OrganizationProps }) => {
                 text="Generate Password"
                 type="button"
                 onClick={generatePassword}
+                disabled={data.tempPassword ? true : false}
+                styleClass="w-full my-2"
               />
             </div>
           </div>
@@ -180,7 +185,7 @@ const Request = ({ data }: { data: OrganizationProps }) => {
             </p>
             <article
               className={clsx(
-                "w-fit text-center border-[1px] rounded py-3 px-2 flex justify-center items-center",
+                "w-full text-center border-[1px] rounded py-3 px-2 flex justify-center items-center tablet:w-fit",
                 mailResponse.success ? "border-success" : "border-error"
               )}
             >
@@ -195,12 +200,20 @@ const Request = ({ data }: { data: OrganizationProps }) => {
                   : "Generate password first before you can verify account"}
               </p>
             </article>
-            <SmallRoundedButton
-              text="Verify Account"
-              type="submit"
-              disabled={!password}
-              w="200px"
-            />
+            <div className="flex flex-col w-full tablet:flex-row gap-3 justify-center my-2">
+              <SmallRoundedButton
+                text="Verify Account"
+                type="submit"
+                disabled={!password}
+                styleClass="w-full tablet:w-[250px]"
+              />
+              <OutlineSmallRoundedButton
+                text="Delete Account"
+                type="button"
+                styleClass="w-full tablet:w-[250px]"
+                onClick={() => setDeleteIsOpen(true)}
+              />
+            </div>
           </form>
         </section>
       </div>
@@ -210,6 +223,13 @@ const Request = ({ data }: { data: OrganizationProps }) => {
       {sendingAccountEmail && (
         <OverlayLoading
           text={`Sending Email to ${data.organisationName}! Please wait...`}
+        />
+      )}
+      {deleteIsOpen && (
+        <RequestDeletePopup
+          id={data._id}
+          orgName={data.organisationName}
+          setDeleteIsOpen={setDeleteIsOpen}
         />
       )}
     </div>

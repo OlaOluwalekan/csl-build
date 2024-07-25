@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { BasicBtnProps } from "../../../types/button.interface";
 
-const SmallRoundedButton = ({
+const OutlineSmallRoundedButton = ({
   text,
   type,
   disabled = false,
@@ -12,10 +12,10 @@ const SmallRoundedButton = ({
     <button
       type={type}
       className={clsx(
-        "text-base-white py-3 px-3 rounded-lg text-sm",
+        "w-full bg-base-white border-indigo-red border-[1px] text-indigo-red py-3 px-3 rounded-lg text-sm",
         disabled
-          ? "bg-base-grey cursor-not-allowed opacity-50"
-          : "bg-indigo-red cursor-pointer opacity-100",
+          ? "cursor-not-allowed opacity-50"
+          : "cursor-pointer opacity-100",
         styleClass
       )}
       disabled={disabled}
@@ -26,4 +26,4 @@ const SmallRoundedButton = ({
   );
 };
 
-export default SmallRoundedButton;
+export default OutlineSmallRoundedButton;

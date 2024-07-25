@@ -15,6 +15,7 @@ const initialState: RequestsInitialStateProps = {
   filter: { field: "all", value: "all" },
   fetchingPassword: false,
   sendingAccountEmail: false,
+  deletingAccount: false,
 };
 
 export const getOrgRequests = createAsyncThunk<
@@ -56,12 +57,30 @@ export const sendAccountEmail = createAsyncThunk<
   AccountEmailProps,
   { rejectValue: any }
 >("request/sendAccountEmail", async (payload, thunkAPI) => {
-  console.log(payload);
-
   try {
     const { data } = await customFetch.patch("account-verify", payload, {
       headers: { authorization: `Bearer ${getTokenFromLocalStorage()}` },
     });
+    // console.log(data);
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+export const deleteRequestedOrgAccount = createAsyncThunk<
+  AllOrgsResponseProps,
+  string,
+  { rejectValue: any }
+>("request/deleteRequestedOrgAccount", async (payload, thunkAPI) => {
+  try {
+    const { data } = await customFetch.delete(
+      `admin/delete-account/${payload}`,
+      {
+        headers: { authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      }
+    );
     // console.log(data);
     return data;
   } catch (error: any) {
@@ -109,6 +128,16 @@ const requestSlice = createSlice({
       })
       .addCase(sendAccountEmail.rejected, (state) => {
         state.sendingAccountEmail = false;
+      })
+      .addCase(deleteRequestedOrgAccount.pending, (state) => {
+        state.deletingAccount = true;
+      })
+      .addCase(deleteRequestedOrgAccount.fulfilled, (state, { payload }) => {
+        state.deletingAccount = false;
+        state.organizations = payload.data.accounts;
+      })
+      .addCase(deleteRequestedOrgAccount.rejected, (state) => {
+        state.deletingAccount = false;
       });
   },
 });
