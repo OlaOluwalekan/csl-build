@@ -1,10 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../profile/ProfileImage";
 import Notifications from "./Notifications";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
+import { useEffect } from "react";
+import { getAdminProfile } from "../../features/adminSlice";
 
 const HeaderRowLast = () => {
   const { adminProfile } = useSelector((store: RootState) => store.admin);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getAdminProfile());
+  }, []);
 
   return (
     <section className="flex items-center gap-2">
