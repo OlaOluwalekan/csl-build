@@ -12,7 +12,7 @@ const Logo = ({ size }: { size?: string }) => {
       />
       <span
         className={clsx(
-          "text-xl font-extrabold font-lato",
+          "text-xl font-extrabold font-lato text-navy-blue",
           logoSize(size as string).textSize
         )}
       >

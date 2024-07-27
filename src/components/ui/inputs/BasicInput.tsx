@@ -1,4 +1,4 @@
-import { BasicInputProps } from '../../../types/input.interface'
+import { BasicInputProps } from "../../../types/input.interface";
 
 const BasicInput = ({
   type,
@@ -14,9 +14,9 @@ const BasicInput = ({
       name={name}
       placeholder={placeholder}
       onChange={handleChange}
-      className='w-full border-[1px] border-light-grey py-2 px-3 my-2 bg-[unset] placeholder:text-light-grey'
+      className="w-full border-[1px] border-light-grey py-2 px-3 my-2 bg-[unset] placeholder:text-light-grey"
     />
-  )
-}
+  );
+};
 
-export default BasicInput
+export default BasicInput;

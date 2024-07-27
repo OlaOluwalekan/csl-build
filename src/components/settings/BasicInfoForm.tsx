@@ -227,6 +227,7 @@ const BasicInfoForm = () => {
               name="gender"
               value={basicInfo.gender}
               label="Gender"
+              placeholder="Select your gender"
               options={genderOptions}
               onChange={handleSelectChange}
             />

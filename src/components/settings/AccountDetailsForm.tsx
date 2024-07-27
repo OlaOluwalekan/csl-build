@@ -11,6 +11,7 @@ import {
   updateAccountDetails,
 } from "../../features/adminSlice";
 import { toast } from "react-toastify";
+import SelectInput from "../ui/inputs/SelectInput";
 
 interface AccountDetailsFormDataProps {
   bankName: string;
@@ -18,6 +19,12 @@ interface AccountDetailsFormDataProps {
   accountType: string;
   accountNumber: string;
 }
+
+const accountTypeOptions = [
+  { value: "savings", label: "Savings" },
+  { value: "current", label: "Current" },
+  { value: "corporate", label: "Corporate" },
+];
 
 const AccountDetailsForm = () => {
   const { adminProfile, isLoading } = useSelector(
@@ -44,6 +51,10 @@ const AccountDetailsForm = () => {
     const name = e.target.name;
     const value = e.target.value;
     setAccountInfo({ ...accountInfo, [name]: value });
+  };
+
+  const handleSelectChange = (value: string) => {
+    setAccountInfo({ ...accountInfo, accountType: value });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -107,7 +118,7 @@ const AccountDetailsForm = () => {
               name="accountNumber"
               handleChange={handleChange}
             />
-            <LabelledInput
+            {/* <LabelledInput
               type="text"
               value={accountInfo.accountType}
               label="Account Type"
@@ -116,6 +127,15 @@ const AccountDetailsForm = () => {
               name="accountType"
               handleChange={handleChange}
               // readonly={true}
+            /> */}
+            <SelectInput
+              id="accountType"
+              name="accountType"
+              value={accountInfo.accountType}
+              label="Account Type"
+              placeholder="Select account type"
+              options={accountTypeOptions}
+              onChange={handleSelectChange}
             />
           </div>
           <article className="flex justify-end">

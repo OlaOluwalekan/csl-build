@@ -31,7 +31,7 @@ const HeroCarousel = () => {
 
   return (
     <div className="w-100vw">
-      <div className="overflow-hidden relative aspect-[5/3] laptop:aspect-auto">
+      <div className="overflow-hidden relative aspect-[5/3] tablet:aspect-[7/3] laptop:aspect-[10/3]">
         {/* SLIDES */}
         <div
           className="flex transition ease-out duration-75 w-[400%] h-full"
@@ -47,7 +47,12 @@ const HeroCarousel = () => {
                   alt={slide.alt}
                   className="w-full h-full object-cover"
                 />
-                <article className="w-full h-full bg-[#00000021] absolute top-0"></article>
+                <article
+                  className={clsx(
+                    "w-full h-full absolute top-0",
+                    slide.id === 4 ? "bg-base-black/0" : "bg-base-black/40"
+                  )}
+                ></article>
                 <div className="w-screen h-full absolute top-0 flex justify-center items-center text-3xl text-white text-center">
                   {location.pathname === "/" && "Home"}
                   {location.pathname === "/register" && "Admin Registration"}

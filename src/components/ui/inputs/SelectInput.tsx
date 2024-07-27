@@ -8,6 +8,7 @@ const SelectInput = ({
   onChange,
   label,
   options,
+  placeholder,
 }: SelectInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
@@ -28,7 +29,7 @@ const SelectInput = ({
         )}
       >
         <option value="" disabled>
-          Select
+          {placeholder ? placeholder : "Select"}
         </option>
         {options.map((option) => {
           return (
