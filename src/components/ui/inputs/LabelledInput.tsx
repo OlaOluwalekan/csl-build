@@ -26,7 +26,7 @@ const LabelledInput = ({
         name={name}
         className={clsx(
           "border-[1px] w-full border-light-grey px-4 py-2 rounded-md focus:border-[1.5px] focus:outline-none",
-          readonly ? "bg-base-secondary cursor-not-allowed" : ""
+          readonly ? "bg-base-secondary cursor-not-allowed" : "bg-base-white"
         )}
         readOnly={readonly}
       />

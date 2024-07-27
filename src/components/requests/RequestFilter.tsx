@@ -26,7 +26,7 @@ const RequestFilter = () => {
 
   return (
     <div className="flex flex-wrap items-center">
-      <span className="mr-2">Filter By:</span>{" "}
+      <span className="mr-2 text-navy-blue text-sm">Filter By:</span>{" "}
       <button
         className={clsx(
           "mr-2 shadow py-1 px-4 rounded-lg text-sm",

@@ -48,7 +48,7 @@ const ClientTrialLevel = () => {
               <article className="w-full flex justify-end">
                 <Link
                   to="/requests"
-                  className="flex items-center gap-2 text-xs"
+                  className="flex items-center gap-2 text-xs text-navy-blue"
                 >
                   View more <FaArrowRight />
                 </Link>

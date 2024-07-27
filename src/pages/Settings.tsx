@@ -2,7 +2,7 @@ import AdminSettings from "../components/settings/AdminSettings";
 
 const Settings = () => {
   return (
-    <div className="py-4 px-4 tablet:px-12">
+    <div className="py-4 px-4 tablet:px-12 text-navy-blue">
       <AdminSettings />
     </div>
   );
