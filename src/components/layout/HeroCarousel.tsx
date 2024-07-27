@@ -30,7 +30,7 @@ const HeroCarousel = () => {
   }, []);
 
   return (
-    <div className="w-100vw bg-red-400">
+    <div className="w-100vw">
       <div className="overflow-hidden relative aspect-[5/3] laptop:aspect-auto">
         {/* SLIDES */}
         <div

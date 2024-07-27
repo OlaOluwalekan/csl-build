@@ -34,19 +34,27 @@ const ClientTrialLevel = () => {
         <SectionLoading />
       ) : (
         <>
-          <div className="flex flex-col gap-2 my-3">
-            {onTrials.map((org) => {
-              return <TrialLevelBar key={org._id} data={org} />;
-            })}
-          </div>
-          <article className="w-full flex justify-end">
-            <Link
-              to="/client-profile"
-              className="flex items-center gap-2 text-xs"
-            >
-              View more <FaArrowRight />
-            </Link>
-          </article>
+          {onTrials.length === 0 ? (
+            <div className="flex justify-center items-center py-5">
+              No request received yet
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-2 my-3">
+                {onTrials.map((org) => {
+                  return <TrialLevelBar key={org._id} data={org} />;
+                })}
+              </div>
+              <article className="w-full flex justify-end">
+                <Link
+                  to="/requests"
+                  className="flex items-center gap-2 text-xs"
+                >
+                  View more <FaArrowRight />
+                </Link>
+              </article>
+            </>
+          )}
         </>
       )}
     </div>

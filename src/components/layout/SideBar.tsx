@@ -8,15 +8,22 @@ import SideBarItem from "./SideBarItem";
 import OutlineButton from "../ui/buttons/OutlineButton";
 import { removeAdminFromLocalStorage } from "../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const SideBar = () => {
   const { navIsOpen } = useSelector((store: RootState) => store.general);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutAdmin = () => {
     removeAdminFromLocalStorage();
-    navigate("/login");
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/login");
+      toast.success("Logged out successfully!");
+    }, 2000);
   };
 
   return (
@@ -47,10 +54,11 @@ const SideBar = () => {
 
         <section className="my-16">
           <OutlineButton
-            text="Logout"
+            text={loading ? "Logging Out..." : "Logout"}
             type="button"
             onClick={logoutAdmin}
             classStyles="w-full"
+            disabled={loading}
           />
         </section>
       </div>

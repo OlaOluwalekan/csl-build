@@ -9,6 +9,7 @@ import BasicNotification from "../notification/BasicNotification";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { loginAdmin } from "../../features/authSlice";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ const LoginForm = () => {
     if (hasErrors) return;
     dispatch(loginAdmin(formData)).then((res) => {
       if (res.payload.success) {
+        toast.success("Logged in successfully!");
         setFormData({
           email: "",
           password: "",
